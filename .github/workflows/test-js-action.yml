@@ -8,9 +8,11 @@ jobs:
     runs-on: ubuntu-latest
     name: A job to get Date
     steps:
+    - name: Clone repository
+      uses: actions/checkout@v2
     - name: Run GetDate Action
       id: js-gha
-      uses: ./.github/actions/js
+      uses: ./.github/actions/js/
       with:
         offset: "+2"
     - name: Echo date
