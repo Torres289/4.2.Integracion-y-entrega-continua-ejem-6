@@ -10,7 +10,7 @@ jobs:
     steps:
     - name: Run GetDate Action
       id: js-gha
-      uses: .github/actions/js-action.yml
+      uses: ./.github/actions/js-action.yml
       with:
         offset: "+2"
     - name: Echo date

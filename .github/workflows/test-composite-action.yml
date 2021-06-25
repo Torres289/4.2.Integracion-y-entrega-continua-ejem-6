@@ -18,7 +18,7 @@ jobs:
         java-version: 11
     - name: Run Maven Action
       id: maven-gha
-      uses: .github/actions/composite-action.yml
+      uses: ./.github/actions/composite-action.yml
       with:
         package: false
         exclude: 'selenium'
