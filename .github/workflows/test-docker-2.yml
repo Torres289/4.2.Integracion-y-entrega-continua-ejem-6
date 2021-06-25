@@ -10,4 +10,7 @@ jobs:
       image: maes95/time-action:1.0.0
     steps:  
     - name: Run entry point
+      id: time-action
       run: sh /entrypoint.sh
+    - name: Echo date
+      run: echo  ${{ steps.time-action.outputs.time }}
