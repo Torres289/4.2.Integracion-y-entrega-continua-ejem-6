@@ -10,8 +10,6 @@ jobs:
     steps:
     - name: Clone repository
       uses: actions/checkout@v2
-      with:
-        repository: 'AIS-Mostoles-2021/pruebas'
     - name: Set up JDK 11
       uses: actions/setup-java@v1
       with:
