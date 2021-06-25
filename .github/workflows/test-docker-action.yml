@@ -1,0 +1,19 @@
+name: Test Docker Action
+
+on: 
+  workflow_dispatch:
+
+jobs:
+  get-date-test:
+    runs-on: ubuntu-latest
+    name: A job to get Date
+    steps:
+    - name: Clone repository
+      uses: actions/checkout@v2
+    - name: Run GetDate Action
+      id: docker-gha
+      uses: ./.github/actions/docker/
+      with:
+        offset: "+2"
+    - name: Echo date
+      run: echo  ${{ steps.docker-gha.outputs.time }}

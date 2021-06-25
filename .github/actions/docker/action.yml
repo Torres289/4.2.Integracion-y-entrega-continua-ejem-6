@@ -1,0 +1,18 @@
+name: 'GetDate'
+description: 'Return current time'
+
+inputs:
+  offset:  # id of input
+    description: 'Offset of UTC'
+    required: false
+    default: '+0'
+
+outputs:
+  time: # id of output
+    description: 'Current time'
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.offset }}
