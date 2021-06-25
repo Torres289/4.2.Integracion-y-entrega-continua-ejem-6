@@ -5,10 +5,10 @@ on:
 
 jobs:
   docker-example:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v2
-    - name: Run box version
+    - name: Run Docker container
       id: time-action    
       uses: docker://maes95/time-action:1.0.0
       with:
