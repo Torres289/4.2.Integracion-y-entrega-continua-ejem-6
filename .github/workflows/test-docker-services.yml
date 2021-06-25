@@ -1,4 +1,4 @@
-name: Test Docker No-custom Action
+name: Test Docker Services
 
 on: 
   workflow_dispatch:
