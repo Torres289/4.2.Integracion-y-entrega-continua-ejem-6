@@ -1,0 +1,17 @@
+name: Test Docker No-custom Action
+
+on: 
+  workflow_dispatch:
+
+jobs:
+  docker-example:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run box version
+      id: time-action    
+      uses: docker://maes95/time-action:1.0.0
+      with:
+        args: "+2"
+    - name: Echo date
+      run: echo  ${{ steps.time-action.outputs.time }}
