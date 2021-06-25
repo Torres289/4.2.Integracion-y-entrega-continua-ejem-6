@@ -13,4 +13,4 @@ jobs:
            - 8080:8080
     steps:
       - name: Get items
-        run: curl http://localhost:8080/api/items/
+        run: sleep 10 && curl http://localhost:8080/api/items/
