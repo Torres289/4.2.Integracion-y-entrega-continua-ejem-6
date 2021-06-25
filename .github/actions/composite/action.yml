@@ -16,14 +16,22 @@ runs:
   using: "composite"
   steps: 
     - name: Run Selenium test
-      run: mvn -B '-Dtest=*.unitary.*Test' test
-      shell: bash
-    - name: Run Selenium test
-      run: mvn -B '-Dtest=*.e2e.rest.*Test' test
+      run: |
+        echo "::group::Unitary test"
+        mvn -B '-Dtest=*.unitary.*Test' test
+        echo "::endgroup::"
       shell: bash
     - name: Run Selenium test
       run: |
+        echo "::group::REST test"
+        mvn -B '-Dtest=*.e2e.rest.*Test' test
+        echo "::endgroup::"
+      shell: bash
+    - name: Run Selenium test
+      run: |
+        echo "::group::Selenium test"
         [[ "${{ contains(inputs.exclude, 'selenium') }}" = false ]] && mvn -B '-Dtest=*.e2e.selenium.*Test' test || echo "Selenium test skipped" && true
+        echo "::endgroup::"
       shell: bash
     - name: Create package
       run: |
