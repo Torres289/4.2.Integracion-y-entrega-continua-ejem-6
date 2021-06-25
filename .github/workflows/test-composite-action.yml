@@ -1,0 +1,27 @@
+name: Test Composite Action
+
+on: 
+  workflow_dispatch:
+
+jobs:
+  run-maven-test:
+    runs-on: ubuntu-latest
+    name: A job to run test
+    steps:
+    - name: Clone repository
+      uses: actions/checkout@v2
+      with:
+        repository: 'AIS-Mostoles-2021/pruebas'
+    - name: Set up JDK 11
+      uses: actions/setup-java@v1
+      with:
+        java-version: 11
+    - name: Run Maven Action
+      id: maven-gha
+      uses: .github/actions/composite-action.yml
+      with:
+        package: false
+        exclude: 'selenium'
+    - name: Get project version
+      run: |
+        [[ ${{ steps.maven-gha.outputs.project-version }} == "0.1.0-SNAPSHOT" ]] && echo "Works" || ( echo "Fail" && exit 1 )

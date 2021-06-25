@@ -1,0 +1,17 @@
+name: Test JS Action
+
+on: 
+  workflow_dispatch:
+
+jobs:
+  get-date-test:
+    runs-on: ubuntu-latest
+    name: A job to get Date
+    steps:
+    - name: Run GetDate Action
+      id: js-gha
+      uses: .github/actions/js-action.yml
+      with:
+        offset: "+2"
+    - name: Echo date
+      run: echo  ${{ steps.js-gha.outputs.time }}

@@ -1,0 +1,35 @@
+name: 'Composite - Maven Action'
+description: 'Run all test of a Maven project'
+inputs:
+  package:  
+      description: 'If true, build jar of the project'
+      required: false
+      default: 'false'
+  exclude:  
+    description: 'Test to exclude'
+    required: false
+outputs: 
+  project-version:
+    description: 'Project version extracted from pom.xml'
+    value: ${{ steps.version-extractor.outputs.version }}
+runs:
+  using: "composite"
+  steps: 
+    - name: Run Selenium test
+      run: mvn -B '-Dtest=*.unitary.*Test' test
+      shell: bash
+    - name: Run Selenium test
+      run: mvn -B '-Dtest=*.e2e.rest.*Test' test
+      shell: bash
+    - name: Run Selenium test
+      run: |
+        [[ "${{ contains(inputs.exclude, 'selenium') }}" = false ]] && mvn -B '-Dtest=*.e2e.selenium.*Test' test || echo "Selenium test skipped" && true
+      shell: bash
+    - name: Create package
+      run: |
+        [[ "${{ contains(inputs.package, 'true') }}" = true ]] && mvn -B package -DskipTests || echo "Package test skipped" && true
+      shell: bash
+    - id: version-extractor
+      run: echo "::set-output name=version::$(mvn -q help:evaluate -Dexpression=project.version -DforceStdout)"
+      shell: bash
+    
